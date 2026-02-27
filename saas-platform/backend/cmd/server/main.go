@@ -1,35 +1,37 @@
 package main
 
 import (
-    "log"
+	"log"
 
-    "saas-platform/internal/config"
-    "saas-platform/internal/db"
-    "saas-platform/internal/handlers"
-    "saas-platform/internal/middleware"
+	"saas-platform/internal/config"
+	"saas-platform/internal/db"
+	"saas-platform/internal/handlers"
+	"saas-platform/internal/middleware"
 
-    "github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
-    cfg := config.Load()
+	cfg := config.Load()
 
-    database, err := db.New(cfg)
-    if err != nil {
-        log.Fatal(err)
-    }
+	database, err := db.New(cfg)
+	if err != nil {
+		log.Fatal(err)
+	}
 
-    r := gin.Default()
+	r := gin.Default()
 
-    tenantHandler := handlers.NewTenantHandler(database)
+	tenantHandler := handlers.NewTenantHandler(database)
+	apiKeyHandler := handlers.NewAPIKeyHandler(database)
 
-    r.POST("/tenants", tenantHandler.CreateTenant)
+	r.POST("/tenants", tenantHandler.CreateTenant)
+	r.POST("/tenants/:tenant_id/keys", apiKeyHandler.CreateKey)
 
-    auth := r.Group("/")
-    auth.Use(middleware.APIKeyAuth(database))
-    auth.GET("/protected", func(c *gin.Context) {
-        c.JSON(200, gin.H{"message": "ok"})
-    })
+	auth := r.Group("/")
+	auth.Use(middleware.APIKeyAuth(database))
+	auth.GET("/protected", func(c *gin.Context) {
+		c.JSON(200, gin.H{"message": "ok"})
+	})
 
-    r.Run(":8080")
+	r.Run(":8080")
 }
