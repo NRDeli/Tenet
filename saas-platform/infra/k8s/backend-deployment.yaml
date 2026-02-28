@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: saas-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: saas-backend
+  template:
+    metadata:
+      labels:
+        app: saas-backend
+    spec:
+      containers:
+        - name: backend
+          image: saas-backend:k8s
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DATABASE_URL
+              value: postgres://postgres:postgres@host.minikube.internal:5432/saas?sslmode=disable
+            - name: REDIS_ADDR
+              value: host.minikube.internal:6379
