@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: saas-backend
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: saas-backend
   ports:

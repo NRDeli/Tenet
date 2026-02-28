@@ -20,6 +20,6 @@ spec:
             - containerPort: 8080
           env:
             - name: DATABASE_URL
-              value: postgres://postgres:postgres@host.minikube.internal:5432/saas?sslmode=disable
+              value: postgres://postgres:postgres@postgres:5432/saas?sslmode=disable
             - name: REDIS_ADDR
-              value: host.minikube.internal:6379
+              value: redis:6379
