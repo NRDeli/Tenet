@@ -4,7 +4,7 @@
 
 ---
 
-# 🚀 Project Overview
+# 🏯 Project Overview
 
 **Tenet** is a multi‑tenant SaaS backend implemented in Go and deployed as a cloud‑native system on AWS using Kubernetes (EKS).
 
@@ -308,7 +308,7 @@ GET  /protected
 
 ---
 
-# 🏁 Result
+# 🏁 Resume Value
 
 This project demonstrates production‑style cloud backend engineering:
 
@@ -325,10 +325,4 @@ Suitable for:
 - Cloud / Platform roles
 - Distributed Systems roles
 
----
-
-# 👤 Author
-
-Nirmit Deliwala  
-NC State University — MS Computer Science
 
